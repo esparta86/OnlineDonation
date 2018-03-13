@@ -35,19 +35,34 @@
 	        
 	      </div>
 	       <div class="col-sm-5 col-xs-5">
-	          <springForm:form method="post" >
+	          <springForm:form  method="post" commandName="cmdusuariologin" >
 	           <div class="row">
 	                <div class="col-sm-12 col-xs-12">
-	                  already have an account
+	                  <h3><b>Already have an account</b></h3>
 	                </div>
 	           </div>
 	           <div class="row">
 	                 <div class="col-sm-6 col-xs-6">
-	                    USER
+	                   <springForm:label path="userName" class="control-label"> User</springForm:label>
 	                 </div>
 	                 <div class="col-sm-6 col-xs-6">
-    		            ENTER USER
-                      </div>
+    		            <springForm:input path="userName" cssClass="form-control"/>
+                     </div>
+                     
+                     
+                      <div class="col-sm-6 col-xs-6">
+	                   <springForm:label path="password" class="control-label"> Password</springForm:label>
+	                 </div>
+	                 <div class="col-sm-6 col-xs-6">
+    		            <springForm:password path="password" cssClass="form-control"/>
+                     </div>
+	            </div>
+	            <div class="row">
+	                 <div class="col-sm-6 col-xs-6">
+	                 </div>
+	                 <div class="col-sm-6 col-xs-6" style="padding-top: 10px;">
+	                    <input type="submit" value="Login" class="btn btn-large btn btn-primary btn-lg btn-block">
+	                 </div>
 	            </div>
 	           </springForm:form>
 	      </div>
