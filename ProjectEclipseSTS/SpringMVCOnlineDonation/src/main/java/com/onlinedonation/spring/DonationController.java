@@ -1,6 +1,7 @@
 package com.onlinedonation.spring;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.onlinedonation.bean.Donation;
 import com.onlinedonation.bean.Institution;
+import com.onlinedonation.service.SIDonation;
 import com.onlinedonation.service.SIInstitution;
+import com.onlinedonation.service.ServiceDonationImp;
 import com.onlinedonation.service.ServiceInstitutionImp;
 import com.onlinedonation.util.finalConstantParameter;
 import com.onlinedonation.validator.DonationValidator;
@@ -77,10 +80,37 @@ public class DonationController {
 			amv.setViewName("donationView");
 			amv.addObject("cmdDonation", donation);
 		} else {
-			amv.setViewName("donationView");
-			amv.addObject("msjResult", "donation saved ");
+			try {
+				amv.setViewName("donationView");
+				amv.addObject("msjResult", "donation saved ");
+				registerDonation(donation);
+			} catch (Exception e) {
+				e.printStackTrace();
+				amv.addObject("msjResult", "donation not saved ");
+			}
 		}
 		return amv;
+	}
+
+	private void registerDonation(Donation donation) throws Exception {
+		ApplicationContext appContext = new ClassPathXmlApplicationContext("com/onlinedonation/xml/beans.xml");
+
+		try {
+			SIDonation siDonation = (SIDonation) appContext.getBean(ServiceDonationImp.class);
+
+			donation.setIdUsuario(new Integer(1));
+			donation.setDonationDate(new Date());
+
+			siDonation.registerDonation(donation);
+
+		} catch (NoSuchBeanDefinitionException e) {
+			System.err.println("Bean no encontrado :" + e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Otro error " + e.getMessage());
+		} finally {
+			((ConfigurableApplicationContext) appContext).close();
+		}
 	}
 
 }

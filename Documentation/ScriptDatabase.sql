@@ -30,12 +30,12 @@ create table DEPARTMENT
 
 create table DONATION
 (
-   IDDONATION           bigint not null,
+   IDDONATION           bigint not null auto_increment,
    IDUSUARIO            bigint not null,
    ID_INSTITUTION       bigint not null,
    AMOUNT               numeric(10,2) not null,
    CREDITCARD           varchar(20),
-   TYPE_CREDIT_CARD     char(1),
+   TYPE_CREDIT_CARD     varchar(2),
    DONATION_DATE        datetime,
    primary key (IDDONATION)
 );

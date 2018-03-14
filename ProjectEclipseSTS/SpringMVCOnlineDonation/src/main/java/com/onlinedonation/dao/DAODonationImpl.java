@@ -9,6 +9,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.onlinedonation.bean.Donation;
@@ -20,9 +21,23 @@ public class DAODonationImpl implements DAOIDonation {
 	@Autowired
 	private DataSource dataSourceMysql;
 
+	private JdbcTemplate jdbcTemplate;
+
 	@Override
 	public void registerDonation(Donation donation) throws Exception {
-		// TODO Auto-generated method stub
+		String sql = "INSERT INTO donation.donation(IDUSUARIO,ID_INSTITUTION,AMOUNT,CREDITCARD,TYPE_CREDIT_CARD,DONATION_DATE)"
+				+ " VALUES(?,?,?,?,?,?)";
+		try {
+			jdbcTemplate = new JdbcTemplate(dataSourceMysql);
+			jdbcTemplate.update(sql,
+					new Object[] { donation.getIdUsuario(), donation.getIdInstitution(), donation.getAmount(),
+							donation.getCreditCard(), donation.getTypeCreditCard(), donation.getDonationDate() });
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("Register donation error :" + e.getMessage());
+		} finally {
+
+		}
 
 	}
 
@@ -64,7 +79,7 @@ public class DAODonationImpl implements DAOIDonation {
 				dona.setIdInstitution(rs.getInt("ID_INSTITUTION"));
 				dona.setAmount(rs.getBigDecimal("AMOUNT"));
 				dona.setCreditCard(rs.getString("CREDITCARD"));
-				dona.setTypeCreditCard(rs.getString("TYPE_CREDIT_CARD").charAt(0));
+				dona.setTypeCreditCard(rs.getString("TYPE_CREDIT_CARD"));
 				dona.setDonationDate(rs.getDate("DONATION_DATE"));
 				lista.add(dona);
 			}

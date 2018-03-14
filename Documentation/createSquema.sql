@@ -1,0 +1,2 @@
+CREATE SCHEMA `donation` DEFAULT CHARACTER SET utf8 ;
+

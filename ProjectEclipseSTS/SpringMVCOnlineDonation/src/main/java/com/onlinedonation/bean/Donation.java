@@ -9,7 +9,7 @@ public class Donation {
 	private Usuario usuario;
 	private BigDecimal amount;
 	private String creditCard;
-	private char typeCreditCard;
+	private String typeCreditCard;
 	private Date donationDate;
 	private Institution institution;
 
@@ -65,11 +65,11 @@ public class Donation {
 		this.creditCard = creditCard;
 	}
 
-	public char getTypeCreditCard() {
+	public String getTypeCreditCard() {
 		return typeCreditCard;
 	}
 
-	public void setTypeCreditCard(char typeCreditCard) {
+	public void setTypeCreditCard(String typeCreditCard) {
 		this.typeCreditCard = typeCreditCard;
 	}
 

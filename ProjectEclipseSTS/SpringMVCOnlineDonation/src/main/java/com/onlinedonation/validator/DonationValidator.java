@@ -25,7 +25,7 @@ public class DonationValidator implements Validator {
 			error.rejectValue("idInstitution", "required.idInstitution", "Have to select institution");
 		}
 
-		if (donation.getTypeCreditCard() == 'S') {
+		if (donation.getTypeCreditCard().compareTo("S") == 0) {
 			error.rejectValue("typeCreditCard", "required.typeCreditCard", "Have to select a type");
 		}
 
