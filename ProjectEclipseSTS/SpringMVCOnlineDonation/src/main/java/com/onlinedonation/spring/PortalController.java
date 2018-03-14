@@ -44,7 +44,7 @@ public class PortalController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView formJugador(@ModelAttribute("cmdusuariologin") Usuario usuario, BindingResult result,
+	public ModelAndView formLogin(@ModelAttribute("cmdusuariologin") Usuario usuario, BindingResult result,
 			SessionStatus status) {
 		this.userValidator.validate(usuario, result);
 		ModelAndView amv = new ModelAndView();

@@ -21,9 +21,9 @@
 	 </div>
 	   <div class="row">
 	      <div class="col-sm-4 col-xs-4">
-	          <a href="irFormulario.html">Add Your Personal Information</a><br/>
+	          <a href="irDonationView.html">Make a Donation</a><br/>
 	          
-	          <a href="irFormulario.html">Make a Donation</a><br/>
+	          <a href="irFormulario.html">Add Your Personal Information</a><br/>
 	      </div>
 	       <div class="col-sm-8 col-xs-8">
 	         
