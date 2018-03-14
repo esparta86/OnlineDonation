@@ -42,6 +42,11 @@
 	                </div>
 	           </div>
 	           <div class="row">
+	              <div class="col-sm-12 col-xs-12">
+	                <springForm:errors path="*" element="div" cssClass="alert alert-danger"></springForm:errors>
+	              </div>
+	            </div>
+	           <div class="row">
 	                 <div class="col-sm-6 col-xs-6">
 	                   <springForm:label path="userName" class="control-label"> User</springForm:label>
 	                 </div>

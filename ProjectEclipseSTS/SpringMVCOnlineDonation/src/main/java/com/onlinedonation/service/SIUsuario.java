@@ -6,6 +6,6 @@ public interface SIUsuario {
 
 	public void registerUsuario(Usuario usuario) throws Exception;
 
-	public Boolean checkUsuario(Usuario usuario) throws Exception;
+	public Integer checkUsuario(Usuario usuario) throws Exception;
 
 }

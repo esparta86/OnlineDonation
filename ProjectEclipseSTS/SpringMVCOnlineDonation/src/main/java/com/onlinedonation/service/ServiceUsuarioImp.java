@@ -23,7 +23,7 @@ public class ServiceUsuarioImp implements SIUsuario {
 	}
 
 	@Override
-	public Boolean checkUsuario(Usuario usuario) throws Exception {
+	public Integer checkUsuario(Usuario usuario) throws Exception {
 		try {
 			return daoiUsuario.checkUsuario(usuario);
 		} catch (Exception e) {

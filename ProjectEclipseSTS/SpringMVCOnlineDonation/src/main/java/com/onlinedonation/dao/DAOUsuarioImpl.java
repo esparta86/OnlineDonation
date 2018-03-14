@@ -23,7 +23,7 @@ public class DAOUsuarioImpl implements DAOIUsuario {
 
 	@Override
 	public void registerUsuario(Usuario usuario) throws Exception {
-		String sql = "INSERT INTO usuario(idusuario,username,password,registrationdate)" + " VALUES(?,?,?,?)";
+		String sql = "INSERT INTO donation.usuario(idusuario,username,password,registrationdate)" + " VALUES(?,?,?,?)";
 		try {
 			jdbcTemplate = new JdbcTemplate(dataSourceMysql);
 			jdbcTemplate.update(sql, new Object[] { usuario.getIdUsuario(), usuario.getUserName(),
@@ -37,16 +37,16 @@ public class DAOUsuarioImpl implements DAOIUsuario {
 	}
 
 	@Override
-	public Boolean checkUsuario(Usuario usuario) throws Exception {
+	public Integer checkUsuario(Usuario usuario) throws Exception {
 		String sql = "select idusuario from donation.usuario where username='" + usuario.getUserName() + "' and "
 				+ " MD5('" + usuario.getPassword() + "') = password ";
 		try {
 			jdbcTemplate = new JdbcTemplate(dataSourceMysql);
 			Integer idUsuario = jdbcTemplate.queryForObject(sql, Integer.class);
-			return idUsuario != null ? Boolean.TRUE : Boolean.FALSE;
+			return idUsuario;
 
 		} catch (EmptyResultDataAccessException e) {
-			return Boolean.FALSE;
+			return null;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new Exception(e.getMessage());

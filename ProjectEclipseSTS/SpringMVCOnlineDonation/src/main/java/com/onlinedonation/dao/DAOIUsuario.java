@@ -9,7 +9,7 @@ public interface DAOIUsuario {
 
 	public void registerUsuario(Usuario usuario) throws Exception;
 
-	public Boolean checkUsuario(Usuario usuario) throws Exception;
+	public Integer checkUsuario(Usuario usuario) throws Exception;
 
 	public List<Usuario> retrieveListResultSet(ResultSet resultSet) throws Exception;
 

@@ -13,6 +13,26 @@ public class Donation {
 	private Date donationDate;
 	private Institution institution;
 
+	private Integer idUsuario;
+
+	public Integer getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(Integer idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
+	public Integer getIdInstitution() {
+		return idInstitution;
+	}
+
+	public void setIdInstitution(Integer idInstitution) {
+		this.idInstitution = idInstitution;
+	}
+
+	private Integer idInstitution;
+
 	public Integer getIdDonation() {
 		return idDonation;
 	}

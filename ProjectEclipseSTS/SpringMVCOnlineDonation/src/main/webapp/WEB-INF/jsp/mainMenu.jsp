@@ -19,6 +19,37 @@
 	         <h1>Wellcome : ${usuario}</h1>
 	      </div>
 	 </div>
+	   <div class="row">
+	      <div class="col-sm-4 col-xs-4">
+	          <a href="irFormulario.html">Add Your Personal Information</a><br/>
+	          
+	          <a href="irFormulario.html">Make a Donation</a><br/>
+	      </div>
+	       <div class="col-sm-8 col-xs-8">
+	         
+	         <table class="table" title="List of donationss">
+				  <thead class="thead-dark">
+				    <tr>
+				      <th scope="col">#</th>
+				      <th scope="col">Amount</th>
+				      <th scope="col">Credit Card</th>
+				      <th scope="col">Donation Date</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				   <c:forEach var="d" items="${listaDonation}">
+				    <tr>
+				      <th scope="row">${d.idDonation}</th>
+				      <td>${d.amount}</td>
+				      <td>${d.creditCard}</td>
+				      <td>${d.donationDate}</td>
+				    </tr>
+				    </c:forEach>
+				    
+				  </tbody>
+				</table>
+	      </div>
+	   </div>
 	   
 	   
    

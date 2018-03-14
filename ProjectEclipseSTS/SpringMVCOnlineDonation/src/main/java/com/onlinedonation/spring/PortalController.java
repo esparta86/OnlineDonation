@@ -1,5 +1,8 @@
 package com.onlinedonation.spring;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -12,13 +15,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.onlinedonation.bean.Donation;
 import com.onlinedonation.bean.Usuario;
+import com.onlinedonation.service.SIDonation;
 import com.onlinedonation.service.SIUsuario;
+import com.onlinedonation.service.ServiceDonationImp;
 import com.onlinedonation.service.ServiceUsuarioImp;
 import com.onlinedonation.util.finalConstantParameter;
+import com.onlinedonation.validator.UserValidator;
 
 @Controller
 public class PortalController {
+
+	private UserValidator userValidator;
+
+	public PortalController() {
+		this.userValidator = new UserValidator();
+	}
 
 	@RequestMapping(value = "irPortal", method = RequestMethod.GET)
 	public ModelAndView cargarPortalInicial() {
@@ -33,26 +46,44 @@ public class PortalController {
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView formJugador(@ModelAttribute("cmdusuariologin") Usuario usuario, BindingResult result,
 			SessionStatus status) {
-		try {
+		this.userValidator.validate(usuario, result);
+		ModelAndView amv = new ModelAndView();
+		if (result.hasErrors()) {
+			amv.addObject("msjBienvenida", finalConstantParameter.STRING_MSJ_BIENVENIDA);
+			amv.setViewName("portalInicial");
+			amv.addObject("cmdusuariologin", usuario);
 
-			if (validateUser(usuario)) {
-				ModelAndView amv = new ModelAndView();
-				amv.setViewName("mainMenu");
-				amv.addObject("usuario", usuario.getUserName());
-				return amv;
+		} else {
+
+			try {
+				Integer idUsuario = validateUser(usuario);
+
+				if (idUsuario != null) {
+					// Retrieve all donations of user
+					usuario.setIdUsuario(idUsuario);
+					List<Donation> listaD = allDonation(usuario);
+
+					amv.setViewName("mainMenu");
+					amv.addObject("usuario", usuario.getUserName());
+					amv.addObject("listaDonation", listaD);
+
+					// return amv;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+
 		}
-		return null;
+		return amv;
 
 	}
 
-	private Boolean validateUser(Usuario usuario) throws Exception {
+	private List<Donation> allDonation(Usuario usuario) throws Exception {
 		ApplicationContext appContext = new ClassPathXmlApplicationContext("com/onlinedonation/xml/beans.xml");
+		List<Donation> lista = new ArrayList<>();
 		try {
-			SIUsuario siUsuario = (SIUsuario) appContext.getBean(ServiceUsuarioImp.class);
-			return siUsuario.checkUsuario(usuario);
+			SIDonation siDonation = (SIDonation) appContext.getBean(ServiceDonationImp.class);
+			lista = siDonation.retrieveAllDonation(usuario);
 
 		} catch (NoSuchBeanDefinitionException e) {
 			System.err.println("Bean no encontrado :" + e.getMessage());
@@ -62,7 +93,27 @@ public class PortalController {
 		} finally {
 			((ConfigurableApplicationContext) appContext).close();
 		}
-		return Boolean.FALSE;
+
+		return lista;
+	}
+
+	private Integer validateUser(Usuario usuario) throws Exception {
+		ApplicationContext appContext = new ClassPathXmlApplicationContext("com/onlinedonation/xml/beans.xml");
+		Integer id = null;
+		try {
+			SIUsuario siUsuario = (SIUsuario) appContext.getBean(ServiceUsuarioImp.class);
+			id = siUsuario.checkUsuario(usuario);
+
+		} catch (NoSuchBeanDefinitionException e) {
+			System.err.println("Bean no encontrado :" + e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Otro error " + e.getMessage());
+		} finally {
+			((ConfigurableApplicationContext) appContext).close();
+		}
+
+		return id;
 	}
 
 }
