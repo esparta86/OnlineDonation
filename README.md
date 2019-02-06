@@ -1,5 +1,6 @@
 # OnlineDonation
-A little system made using Spring Framework MVC , Bootrap, Mysql, tomcat 9 and Java 8.
+# A little system made using Spring Framework MVC , Bootrap, Mysql, tomcat 9 and Java 8.
+# Updated 5 02 2019
 
 Software and tools:
 1. Spring Tool Suite Version: 3.9.2.RELEASE for Window
@@ -9,6 +10,7 @@ Software and tools:
 5. Tomcat 9
 6. Spring Framework version 3.1.1.RELEASE
 7. Bootstrap v4.0.0
+
 
 
 
